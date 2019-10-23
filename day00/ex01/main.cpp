@@ -124,14 +124,14 @@ static void search_info(Contacts *pp, int i)
 static void help(void)
 {
 	std::cout << "Welcome to a crappy phonebook!" << "\n\n";
-	std::cout << "Use commands: 'HELP' - to see welcome message again" << "\n";
-	std::cout << "              'ADD' - to show your contacts list" << "\n";
-	std::cout << "              'SEARCH' - to show your contacts list" << "\n";
-	std::cout << "              'EXIT' - to close and burn your phonebook" << "\n\n";
+	std::cout << "Use commands: 'HELP' - to see welcome message again." << "\n";
+	std::cout << "              'ADD' - to add new contact to your phonebook." << "\n";
+	std::cout << "              'SEARCH' - to show your contacts list." << "\n";
+	std::cout << "              'EXIT' - to close and burn your phonebook." << "\n\n";
 }
 
 
-static bool interact(Contacts *pp, int i)
+static int interact(Contacts *pp, int i)
 {
 	std::string str;
 	std::string cmd;
@@ -143,7 +143,7 @@ static bool interact(Contacts *pp, int i)
 		if (i <= 7)
 		{
 			add_info(pp, i);
-			return(true);
+			return(1);
 		}
 		else
 			std::cout << "Sorry, but your phonebook is out of memory =(" << "\n";
@@ -165,17 +165,18 @@ static bool interact(Contacts *pp, int i)
 			std::cout << "Your phonebook is empty, use ADD comand to begin filling your first contact" << "\n";
 	}
 	else if (cmd == "EXIT")
-		exit(1);
+		return(-1);
 	else if (cmd == "HELP")
 		help();
 	else if (!cmd.empty())
 		std::cout << "'" << cmd << "'" << " Is not a correct command. Write 'HELP' for list of valid commands.\n";
-	return (false);
+	return (0);
 }
 
 int main(void)
 {
 	int i = 0;
+	int check = 0;
 	Contacts person[8];
 	Contacts *pp[8] = {&person[0], &person[1], &person[2], &person[3], &person[4], &person[5], &person[6], &person[7]};
 	std::cout << "Welcome to a crappy phonebook!" << "\n\n";
@@ -183,11 +184,12 @@ int main(void)
 	std::cout << "              'ADD' - to add new contact to your phonebook." << "\n";
 	std::cout << "              'SEARCH' - to show your contacts list." << "\n";
 	std::cout << "              'EXIT' - to close and burn your phonebook." << "\n\n";
-	while(i <= 8)
+	while(i <= 8 && check != -1)
 	{
 		std::cout << "What would you like to do next?" << "\n";
-		if(interact(*pp, i) == true)
-		i++;
+		check = interact(*pp, i);
+		if(check == 1)
+			i++;
 	}
 	return(0);
 }
