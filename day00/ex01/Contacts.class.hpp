@@ -2,6 +2,7 @@
  #define CONTACTS_CLASS_HPP
 
 #include <iostream>
+#include <iomanip>
 
 class Contacts{
 	public:
