@@ -56,7 +56,7 @@ static void add_info(Contacts *pp, int i)
 		std::cout << "What color is your underwear?" << "\n";
 		else if (num == 11)
 		std::cout << "What is your darkest secret?" << "\n";
-		std::cin >> str;
+		std::getline (std::cin, str);
 		set_info(pp, str, num, i);
 		num++;
 	}
@@ -85,17 +85,17 @@ static void cut_print(std::string str)
 
 static void person_info(Contacts *pp, int id)
 {
-	std::cout << "First name - " << pp[id].getFn() << "\n";
-	std::cout << "Last name - " << pp[id].getLn() << "\n";
-	std::cout << "Nickname - " << pp[id].getNick() << "\n";
-	std::cout << "Login - " << pp[id].getLogin() << "\n";
-	std::cout << "Address - " << pp[id].getAdress() << "\n";
-	std::cout << "Email - " << pp[id].getEmail() << "\n";
-	std::cout << "Phone number - " << pp[id].getPhone() << "\n";
-	std::cout << "Birthday date - " << pp[id].getBday() << "\n";
-	std::cout << "Favorite meal - " << pp[id].getMeal() << "\n";
-	std::cout << "Underwear color - " << pp[id].getColor() << "\n";
-	std::cout << "Darkest secret. - " << pp[id].getSecret() << "\n";
+	std::cout << "First name: " << pp[id].getFn() << "\n";
+	std::cout << "Last name: " << pp[id].getLn() << "\n";
+	std::cout << "Nickname: " << pp[id].getNick() << "\n";
+	std::cout << "Login: " << pp[id].getLogin() << "\n";
+	std::cout << "Address: " << pp[id].getAdress() << "\n";
+	std::cout << "Email: " << pp[id].getEmail() << "\n";
+	std::cout << "Phone number: " << pp[id].getPhone() << "\n";
+	std::cout << "Birthday date: " << pp[id].getBday() << "\n";
+	std::cout << "Favorite meal: " << pp[id].getMeal() << "\n";
+	std::cout << "Underwear color: " << pp[id].getColor() << "\n";
+	std::cout << "Darkest secret: " << pp[id].getSecret() << "\n\n";
 }
 
 static void search_info(Contacts *pp, int i)
@@ -137,8 +137,7 @@ static bool interact(Contacts *pp, int i)
 	std::string cmd;
 	int id = 0;
 
-	std::cout << "What would you like to do next?" << "\n";
-	std::cin >> cmd;
+	std::getline (std::cin, cmd);
 	if(cmd == "ADD")
 	{
 		if (i <= 7)
@@ -156,10 +155,11 @@ static bool interact(Contacts *pp, int i)
 			search_info(pp, i);
 			std::cout << "Insert ID of the person whos underwear color would you like to check" << "\n";
 			std::cin >> id;
-			if(id > 0 && id <= 8)
+			if(id > 0 && id <= 8 && i >= id)
 				person_info(pp, id-1);
 			else
-				std::cout << "There is noone with ID - " << id;
+				std::cout << "There is no contact with ID - " << id << "\n";
+			interact(pp, i);
 		}
 		else
 			std::cout << "Your phonebook is empty, use ADD comand to begin filling your first contact" << "\n";
@@ -168,7 +168,7 @@ static bool interact(Contacts *pp, int i)
 		exit(1);
 	else if (cmd == "HELP")
 		help();
-	else
+	else if (!cmd.empty())
 		std::cout << "'" << cmd << "'" << " Is not a correct command. Write 'HELP' for list of valid commands.\n";
 	return (false);
 }
@@ -185,6 +185,7 @@ int main(void)
 	std::cout << "              'EXIT' - to close and burn your phonebook." << "\n\n";
 	while(i <= 8)
 	{
+		std::cout << "What would you like to do next?" << "\n";
 		if(interact(*pp, i) == true)
 		i++;
 	}
