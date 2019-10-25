@@ -114,31 +114,31 @@ Fixed Fixed::operator--(int n){
 	return (tmp);
 	}
 
-Fixed &Fixed::min(Fixed & f1, Fixed & f2){
+Fixed &Fixed::min(Fixed & f1, Fixed &f2){
 	if (f1 <= f2)
 		return (f1);
 	return (f2);
 	}
 
-Fixed &Fixed::max(Fixed & f1, Fixed & f2){
+Fixed &Fixed::max(Fixed & f1, Fixed &f2){
 	if (f1 >= f2)
 		return (f1);
 	return (f2);
 	}
 
-const Fixed &Fixed::min(Fixed const & f1, Fixed const & f2){
+const Fixed &Fixed::min(Fixed const &f1, Fixed const &f2){
 	if (f1 <= f2)
 		return (f1);
 	return (f2);
 	}
 
-const Fixed &Fixed::max(Fixed const & f1, Fixed const & f2){
+const Fixed &Fixed::max(Fixed const &f1, Fixed const &f2){
 	if (f1 >= f2)
 		return (f1);
 	return (f2);
 	}
 
-std::ostream & operator<<(std::ostream & ofs, const Fixed & fixed){
+std::ostream & operator<<(std::ostream &ofs, const Fixed &fixed){
 	ofs << fixed.toFloat();
 	return (ofs);
 }

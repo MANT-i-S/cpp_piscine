@@ -39,12 +39,12 @@ class Fixed{
 	Fixed operator++(int n);
 	Fixed operator--(void);
 	Fixed operator--(int n);
-	static Fixed &min(Fixed & f1, Fixed & f2);
-	static Fixed &max(Fixed & f1, Fixed & f2);
-	static Fixed const &min(Fixed const & f1, Fixed const & f2);
-	static Fixed const &max(Fixed const & f1, Fixed const & f2);
+	static Fixed &min(Fixed & f1, Fixed &f2);
+	static Fixed &max(Fixed & f1, Fixed &f2);
+	static Fixed const &min(Fixed const &f1, Fixed const &f2);
+	static Fixed const &max(Fixed const &f1, Fixed const &f2);
 };
 
-std::ostream & operator<<(std::ostream & ofs, const Fixed & fixed);
+std::ostream & operator<<(std::ostream &ofs, const Fixed &fixed);
 
 #endif
